@@ -1,4 +1,5 @@
 // Mock data generator for solar potential results
+import { calculateSolarROI, type SolarROIResults } from "./utils"
 
 export interface SolarResult {
   roofOrientation: string
@@ -15,6 +16,8 @@ export interface SolarResult {
   roofArea: number
   systemSize: number
   paybackPeriod: number
+  roiResults?: SolarROIResults
+  systemCost?: number
 }
 
 const orientations = ["South", "South-East", "South-West", "East", "West", "North"]
@@ -52,6 +55,30 @@ export function generateMockResults(): SolarResult {
   
   const systemCost = systemSize * 3000 // $3000 per kW
   const paybackPeriod = Math.round(systemCost / yearlySavings)
+
+  // Calculate ROI using the actual calculation function
+  // Convert roof area from sq ft to sq meters (1 sq ft = 0.092903 sq m)
+  const roofAreaSqM = roofArea * 0.092903
+  // Average solar irradiance for Malaysia: 4.5-5.5 kWh/m²/day
+  const solarIrradiance = 5.0
+  // Panel efficiency: typically 18-22% for residential
+  const panelEfficiency = 0.20
+  // Shading factor: convert percentage to decimal
+  const shadingFactor = (100 - shadingPercentage) / 100
+  // Electricity rate in Malaysia: typically 0.30-0.50 MYR/kWh
+  const electricityRate = 0.40
+  // Average monthly consumption (optional)
+  const monthlyConsumption = yearlyGeneration / 12
+
+  const roiResults = calculateSolarROI({
+    roofArea: roofAreaSqM,
+    panelEfficiency,
+    solarIrradiance,
+    shadingFactor,
+    electricityRate,
+    systemCost,
+    monthlyConsumption,
+  })
   
   return {
     roofOrientation: orientation,
@@ -64,7 +91,9 @@ export function generateMockResults(): SolarResult {
     },
     roofArea,
     systemSize,
-    paybackPeriod
+    paybackPeriod,
+    roiResults,
+    systemCost
   }
 }
 

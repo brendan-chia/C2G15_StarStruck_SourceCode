@@ -45,6 +45,16 @@ export default function Header() {
               Results
             </Button>
           </Link>
+          <Link href="/roi">
+            <Button
+              variant={isActive("/roi") ? "default" : "ghost"}
+              className={cn(
+                isActive("/roi") && "bg-primary text-primary-foreground"
+              )}
+            >
+              ROI Calculator
+            </Button>
+          </Link>
         </nav>
       </div>
     </header>

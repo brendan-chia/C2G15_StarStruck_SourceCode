@@ -138,12 +138,11 @@ export default function Results() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
-                <DollarSign className="h-5 w-5" />
                 <span>Monthly Savings</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">${results.estimatedSavings.monthly.toLocaleString()}</div>
+              <div className="text-3xl font-bold">RM{results.estimatedSavings.monthly.toLocaleString()}</div>
               <p className="text-sm text-muted-foreground mt-2">
                 Average monthly savings on electricity bills
               </p>
@@ -153,12 +152,11 @@ export default function Results() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
-                <DollarSign className="h-5 w-5" />
                 <span>Yearly Savings</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">${results.estimatedSavings.yearly.toLocaleString()}</div>
+              <div className="text-3xl font-bold">RM{results.estimatedSavings.yearly.toLocaleString()}</div>
               <p className="text-sm text-muted-foreground mt-2">
                 Total annual savings
               </p>
@@ -192,7 +190,7 @@ export default function Results() {
           <CardContent>
             <div className="text-center py-8">
               <div className="text-5xl font-bold text-primary">
-                ${results.estimatedSavings.lifetime.toLocaleString()}
+                RM{results.estimatedSavings.lifetime.toLocaleString()}
               </div>
               <p className="text-muted-foreground mt-4">
                 Total potential savings over the system&apos;s lifetime
